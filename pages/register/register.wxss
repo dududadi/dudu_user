@@ -1,0 +1,32 @@
+.oneBox {
+    margin-bottom: 25rpx;
+    height: 110rpx;
+    font-size: 30rpx;
+    line-height: 110rpx;
+    background-color: white;
+    color: #373737;
+    box-shadow: 0rpx 2rpx 10rpx #d3d4d5;
+}
+
+.head {
+    
+    padding-left: 50rpx;
+    height: inherit;
+    width: 180rpx;
+    display: inline-flex;
+    vertical-align: bottom;
+}
+
+.body {
+    height: inherit;
+    width: 520rpx;
+    display: inline-flex;
+    vertical-align: bottom;
+}
+
+.button {
+    background-color: #E67F02;
+    border: none;
+    margin: 50rpx;
+    color: white;
+}

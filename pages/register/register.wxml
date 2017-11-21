@@ -1,0 +1,34 @@
+<view class='oneBox' style='margin-top:60rpx;'>
+    <text decode='true' class="head">&emsp;手机号：</text>
+    <input class='body' type='number'></input>
+</view>
+<view class='oneBox'>
+    <text decode='true' class="head">&emsp;&emsp;姓名：</text>
+    <input class='body' type='text'></input>
+</view>
+<view class='oneBox'>
+    <text decode='true' class="head">&emsp;&emsp;密码：</text>
+    <input class='body' type='password'></input>
+</view>
+<view class='oneBox'>
+    <text decode='true' class="head">重复密码：</text>
+    <input class='body' type='password'></input>
+</view>
+<view class='oneBox'>
+    <text decode='true' class="head">身份证号：</text>
+    <input class='body' type='text'></input>
+</view>
+<view class="oneBox">
+    <text decode='true' class="head">地区选择：</text>
+    <picker class='body' mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+        <view>
+            {{region[0]}} {{region[1]}} {{region[2]}}
+        </view>
+    </picker>
+</view>
+<view class='oneBox'>
+    <text decode='true' class="head">详细地址：</text>
+    <input class='body' type='text'></input>
+</view>
+
+<button class='button'>注册</button>
