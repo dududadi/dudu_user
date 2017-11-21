@@ -4,7 +4,7 @@ const app = getApp()
 
 Page({
     data: {
-        motto: 'Hello World',
+        motto: '欢迎使用 嘟嘟出行',
         userInfo: {},
         hasUserInfo: false,
         canIUse: wx.canIUse('button.open-type.getUserInfo')
@@ -70,9 +70,11 @@ Page({
                             wx.setStorageSync('openid', data.open_id);
 
                             if (data.status == 'success') {
-                                wx.redirectTo({
-                                    url: '../main/main',
-                                })
+                                setTimeout(function () {
+                                    wx.redirectTo({
+                                        url: '../main/main',
+                                    })
+                                }, 1000);
                             } else if (data.status == 'fail') {
                                 wx.showModal({
                                     title: '您尚未注册',
@@ -84,7 +86,7 @@ Page({
                                             })
                                         } else {
                                             wx.navigateBack({
-                                                
+
                                             })
                                         }
                                     }
@@ -101,28 +103,5 @@ Page({
                 }
             }
         });
-
-
-
-
-        // wx.login({
-        //     success: function (res) {
-        //         if (res.code) {
-        //             //发起网络请求
-        //             wx.request({
-        //                 url: 'https://www.forhyj.cn/miniapp/User/getOpenId',
-        //                 method: 'POST',
-        //                 data: {
-        //                     code: res.code
-        //                 },
-        //                 success: function (res) {
-        //                     console.log(res.data)
-        //                 }
-        //             })
-        //         } else {
-        //             console.log('获取用户登录态失败！' + res.errMsg)
-        //         }
-        //     }
-        // });
     }
 })

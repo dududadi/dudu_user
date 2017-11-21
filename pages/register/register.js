@@ -13,7 +13,7 @@ Page({
     data: {
         prov: '福建省',
         city: '福州市',
-        aera: '仓山区',
+        area: '仓山区',
         tel: '',
         pwd: '',
         cfpwd: '',
@@ -26,6 +26,12 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+
+        var userInfo = app.globalData.userInfo;
+
+        console.log(userInfo)
+
+
         var _this = this;
 
         wx.getLocation({
@@ -41,7 +47,7 @@ Page({
                         _this.setData({
                             prov: component.province,
                             city: component.city,
-                            aera: component.district
+                            area: component.district
                         })
                     }
                 })
@@ -91,21 +97,12 @@ Page({
 
     },
 
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-
-    },
-
     bindRegionChange: function (e) {
-        console.log(e.detail)
-
-        // this.setData({
-        //     prov: e.detail.value[0],
-        //     city: e.detail.value[2],
-        //     aera: e.detail.value[3]
-        // })
+        this.setData({
+            prov: e.detail.value[0],
+            city: e.detail.value[1],
+            area: e.detail.value[2]
+        })
     },
 
     inputTel: function (e) {
@@ -151,26 +148,73 @@ Page({
                 title: '请检查输入',
                 content: '部分输入有误，请重新再试'
             })
+        } else if (this.data.pwd != this.data.cfpwd) {
+            wx.showModal({
+                title: '密码输入有误',
+                content: '两次密码输入不一致，请重新再试'
+            })
         } else {
             var userInfo = app.globalData.userInfo;
-            console.log(userInfo)
 
             var data = {
                 prov: this.data.prov,
                 city: this.data.city,
-                aera: this.data.aera,
+                area: this.data.area,
                 tel: this.data.tel,
                 pwd: this.data.pwd,
-                cfpwd: this.data.cfpwd,
                 idNum: this.data.idNum,
                 address: this.data.address,
                 name: this.data.name,
                 openid: wx.getStorageSync('openid'),
-                headImg: userInfo.avataUrl,
+                headImg: userInfo.avatarUrl,
                 nickname: userInfo.nickName
             }
 
-            console.log(data);
+            wx.request({
+                url: "https://www.forhyj.cn/miniapp/User/register",
+                method: "POST",
+                data: data,
+                success: function (res) {
+                    var data = res.data;
+
+                    if (data == 0) {
+                        wx.showModal({
+                            title: '电话号码有误',
+                            content: '电话号码格式不对，请重新再试'
+                        })
+                    } else if (data == 1) {
+                        wx.showModal({
+                            title: '密码有误',
+                            content: '密码格式不对，请重新再试'
+                        })
+                    } else if (data == 2) {
+                        wx.showModal({
+                            title: '身份证有误',
+                            content: '身份证号码格式不对，请重新再试'
+                        })
+                    } else if (data == 3) {
+                        wx.showModal({
+                            title: '该手机号已注册',
+                            content: '请更换手机号后再试'
+                        })
+                    } else if (data == 4) {
+                        wx.showModal({
+                            title: '注册成功',
+                            content: '恭喜您注册成功',
+                            success: function(res) {
+                                wx.redirectTo({
+                                    url: '../index/index',
+                                })
+                            }
+                        })
+                    } else if (res == 5) {
+                        wx.showModal({
+                            title: '未知错误',
+                            content: '请联系管理员'
+                        })
+                    }
+                }
+            })
         }
     }
 })

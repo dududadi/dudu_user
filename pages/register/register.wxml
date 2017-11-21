@@ -4,15 +4,15 @@
 </view>
 <view class='oneBox'>
     <text decode='true' class="head">&emsp;&emsp;姓名：</text>
-    <input bindinput='inputName' class='body' type='text'></input>
+    <input bindinput='inputName' class='body' type='text' maxlength="4" placeholder="1-4个字"></input>
 </view>
 <view class='oneBox'>
     <text decode='true' class="head">&emsp;&emsp;密码：</text>
-    <input bindinput='inputPwd' class='body' type='password'></input>
+    <input bindinput='inputPwd' class='body' type='password' maxlength="16" placeholder="8-16位数字加字母"></input>
 </view>
 <view class='oneBox'>
     <text decode='true' class="head">重复密码：</text>
-    <input bindinput='inputCfpwd' class='body' type='password'></input>
+    <input bindinput='inputCfpwd' class='body' type='password' maxlength="16" placeholder="再次输入密码"></input>
 </view>
 <view class='oneBox'>
     <text decode='true' class="head">身份证号：</text>
@@ -22,13 +22,13 @@
     <text decode='true' class="head">地区选择：</text>
     <picker class='body' mode="region" bindchange="bindRegionChange" custom-item="{{customItem}}">
         <view>
-            {{prov}} {{city}} {{aera}}
+            {{prov}} {{city}} {{area}}
         </view>
     </picker>
 </view>
 <view class='oneBox'>
     <text decode='true' class="head">详细地址：</text>
-    <input bindinput='inputAddress' class='body' type='text'></input>
+    <input bindinput='inputAddress' class='body' type='text' maxlength="30" placeholder="1-30个字"></input>
 </view>
 
 <button class='button' bindtap='register'>注册</button>
