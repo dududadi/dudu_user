@@ -16,6 +16,7 @@ Page({
         })
     },
     onLoad: function () {
+        this.getUserInfo
         if (app.globalData.userInfo) {
             this.setData({
                 userInfo: app.globalData.userInfo,
@@ -65,10 +66,10 @@ Page({
                         success: function (res) {
                             var data = res.data;
 
-                            if (data.status == 'success') {
-                                wx.setStorageSync('loginSessionKey', data.session_key);
-                                wx.setStorageSync('openid', data.openid);
+                            wx.setStorageSync('loginSessionKey', data.session_key);
+                            wx.setStorageSync('openid', data.open_id);
 
+                            if (data.status == 'success') {
                                 wx.redirectTo({
                                     url: '../main/main',
                                 })

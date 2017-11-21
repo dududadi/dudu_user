@@ -3,6 +3,8 @@ var qqMap = new QQMapWX({
     key: 'ZNWBZ-QJMCR-BLOWX-WAK34-EFEEF-B6FCT'
 });
 
+const app = getApp();
+
 Page({
 
     /**
@@ -149,6 +151,26 @@ Page({
                 title: '请检查输入',
                 content: '部分输入有误，请重新再试'
             })
+        } else {
+            var userInfo = app.globalData.userInfo;
+            console.log(userInfo)
+
+            var data = {
+                prov: this.data.prov,
+                city: this.data.city,
+                aera: this.data.aera,
+                tel: this.data.tel,
+                pwd: this.data.pwd,
+                cfpwd: this.data.cfpwd,
+                idNum: this.data.idNum,
+                address: this.data.address,
+                name: this.data.name,
+                openid: wx.getStorageSync('openid'),
+                headImg: userInfo.avataUrl,
+                nickname: userInfo.nickName
+            }
+
+            console.log(data);
         }
     }
 })
