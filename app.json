@@ -10,5 +10,6 @@
         "navigationBarBackgroundColor": "#373737",
         "navigationBarTitleText": "嘟嘟出行",
         "navigationBarTextStyle": "white"
-    }
+    },
+    "debug": "true"
 }

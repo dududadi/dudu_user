@@ -1,34 +1,57 @@
+var QQMapWX = require('../../js/qqmap-wx-jssdk.min.js');
+var qqMap = new QQMapWX({
+    key: 'ZNWBZ-QJMCR-BLOWX-WAK34-EFEEF-B6FCT'
+});
+
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        region: ['广东省', '广州市', '海珠区']
+        prov: '福建省',
+        city: '福州市',
+        aera: '仓山区',
+        tel: '',
+        pwd: '',
+        cfpwd: '',
+        idNum: '',
+        address: '',
+        name: ''
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        var _this = this;
 
+        wx.getLocation({
+            success: function (res) {
+                qqMap.reverseGeocoder({
+                    location: {
+                        latitude: res.latitude,
+                        longitude: res.longitude
+                    },
+                    success: function (res) {
+                        var component = res.result.address_component;
+
+                        _this.setData({
+                            prov: component.province,
+                            city: component.city,
+                            aera: component.district
+                        })
+                    }
+                })
+            }
+        })
     },
 
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-        wx.request({
-            url: 'http://www.forhyj.cn/miniapp/User', //仅为示例，并非真实的接口地址
-            data: {
-            },
-            header: {
-                'content-type': 'application/json' // 默认值
-            },
-            success: function (res) {
-                console.log(res.data)
-            }
-        })
+
     },
 
     /**
@@ -74,9 +97,58 @@ Page({
     },
 
     bindRegionChange: function (e) {
-        console.log('picker发送选择改变，携带值为', e.detail.value)
+        console.log(e.detail)
+
+        // this.setData({
+        //     prov: e.detail.value[0],
+        //     city: e.detail.value[2],
+        //     aera: e.detail.value[3]
+        // })
+    },
+
+    inputTel: function (e) {
         this.setData({
-            region: e.detail.value
+            tel: e.detail.value
         })
+    },
+
+    inputName: function (e) {
+        this.setData({
+            name: e.detail.value
+        })
+    },
+
+    inputPwd: function (e) {
+        this.setData({
+            pwd: e.detail.value
+        })
+    },
+
+    inputCfpwd: function (e) {
+        this.setData({
+            cfpwd: e.detail.value
+        })
+    },
+
+    inputIdNum: function (e) {
+        this.setData({
+            idNum: e.detail.value
+        })
+    },
+
+    inputAddress: function (e) {
+        this.setData({
+            address: e.detail.value
+        })
+    },
+
+    //注册
+    register: function () {
+        if (this.data.tel == '' || this.data.pwd == '' || this.data.cfpwd == '' || this.data.idNum == '' || this.data.address == '' || this.data.name == '') {
+            wx.showModal({
+                title: '请检查输入',
+                content: '部分输入有误，请重新再试'
+            })
+        }
     }
 })

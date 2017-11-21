@@ -64,7 +64,6 @@ Page({
                         },
                         success: function (res) {
                             var data = res.data;
-                            console.log(data)
 
                             if (data.status == 'success') {
                                 wx.setStorageSync('loginSessionKey', data.session_key);
