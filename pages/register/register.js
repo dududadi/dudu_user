@@ -1,4 +1,4 @@
-var QQMapWX = require('../../js/qqmap-wx-jssdk.min.js');
+var QQMapWX = require('../../libs/qqmap-wx-jssdk.min.js');
 var qqMap = new QQMapWX({
     key: 'ZNWBZ-QJMCR-BLOWX-WAK34-EFEEF-B6FCT'
 });
@@ -28,9 +28,6 @@ Page({
     onLoad: function (options) {
 
         var userInfo = app.globalData.userInfo;
-
-        console.log(userInfo)
-
 
         var _this = this;
 

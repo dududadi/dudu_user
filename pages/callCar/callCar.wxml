@@ -1,0 +1,26 @@
+<text>服务类型： {{carType}}</text>
+
+
+<view class="section">
+    <input bindinput="bindInput" data-local="start" placeholder="起点" focus="true" value='{{start}}' />
+</view>
+<view bindtouchstart="bindSearch" data-local="start" data-location="{{i.location}}" data-keywords="{{i.name}}" data-latitude="{{i.latitude}}" class="text_box" wx:for="{{tips1}}" wx:for-item="i">
+    {{i.name}}
+</view>
+
+<view class="section">
+    <input bindinput="bindInput" data-local="end" placeholder="终点" focus="true" value='{{end}}' />
+</view>
+<view bindtouchstart="bindSearch" data-local="end" data-location="{{i.location}}" data-keywords="{{i.name}}" class="text_box" wx:for="{{tips2}}" wx:for-item="i">
+    {{i.name}}
+</view>
+
+<button class='button' bindtap="callCarBtn">打车</button>
+
+<view class='shade {{hideAtt}}'></view>
+<view class='hintBox {{hideAtt}}'>
+    <text style='text-align:center;font-size:16px'>正在等待司机接单</text>
+    <view></view>
+    <text style='text-align:center;font-size:16px'>您当前已等待时间 {{clock}}</text>
+    <button class='rmOrder' bindtap='rmOrder'>取消订单</button>
+</view>

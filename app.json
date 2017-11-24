@@ -1,9 +1,11 @@
 {
     "pages": [
+        "pages/map/map",
         "pages/index/index",
         "pages/logs/logs",
         "pages/register/register",
-        "pages/main/main"
+        "pages/main/main",
+        "pages/callCar/callCar"
     ],
     "window": {
         "backgroundTextStyle": "light",

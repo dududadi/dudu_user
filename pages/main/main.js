@@ -77,5 +77,15 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  callCar: function (e) {
+      var type = e.target.dataset.type;
+
+      wx.setStorageSync('carType', type);
+
+      wx.navigateTo({
+          url: '../callCar/callCar',
+      })
   }
 })

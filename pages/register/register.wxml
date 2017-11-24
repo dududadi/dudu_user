@@ -4,7 +4,7 @@
 </view>
 <view class='oneBox'>
     <text decode='true' class="head">&emsp;&emsp;姓名：</text>
-    <input bindinput='inputName' class='body' type='text' maxlength="4" placeholder="1-4个字"></input>
+    <input bindinput='inputName' class='body' type='text' maxlength="6" placeholder="1-4个字"></input>
 </view>
 <view class='oneBox'>
     <text decode='true' class="head">&emsp;&emsp;密码：</text>

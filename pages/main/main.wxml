@@ -3,13 +3,13 @@
   <view class="section">
     <text class="section-title">出行服务</text>
     <view class="clearfix">
-      <view class="item" style="width:{{itemW}};height:{{itemW}};line-height:{{itemH}}">
-        <text class="iconfont icon-car"></text>
-        <text>快车</text>
+      <view bindtap="callCar" data-type="快车" class="item" style="width:{{itemW}};height:{{itemW}};line-height:{{itemH}}">
+        <text data-type="快车" class="iconfont icon-car"></text>
+        <text data-type="快车">快车</text>
       </view>
-      <view class="item" style="width:{{itemW}};height:{{itemW}};line-height:{{itemH}}">
-        <text class="iconfont icon-taxi"></text>
-        <text>出租车</text>
+      <view bindtap="callCar" data-type="出租车" class="item" style="width:{{itemW}};height:{{itemW}};line-height:{{itemH}}">
+        <text data-type="出租车" class="iconfont icon-taxi"></text>
+        <text data-type="出租车">出租车</text>
       </view>
       <view class="item borderR-none" style="width:{{itemW}};height:{{itemW}};line-height:{{itemH}}">
         <text class="iconfont icon-orders"></text>
