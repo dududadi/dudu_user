@@ -1,6 +1,5 @@
 {
     "pages": [
-        "pages/map/map",
         "pages/index/index",
         "pages/logs/logs",
         "pages/register/register",

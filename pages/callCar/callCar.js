@@ -124,50 +124,64 @@ Page({
     getDriver: function () {
         var that = this;
 
-        this.createClock();
-
-        var data = {
-            openid: wx.getStorageSync('openid'),
-            start: this.data.start,
-            end: this.data.end,
-            startLongitude: this.data.startLocation.longitude,
-            startLatitude: this.data.startLocation.latitude,
-            endLongitude: this.data.endLocation.longitude,
-            endLatitude: this.data.endLocation.latitude,
-            carType: this.data.carType,
-            distance: this.data.distance
-        }
-
-        wx.request({
-            url: "https://www.forhyj.cn/miniapp/User/checkHandUp",
-            data: data,
-            method: "POST",
+        wx.getLocation({
+            type: 'gcj02',
             success: function (res) {
-                var data = res.data;
+                var myLongitude = res.longitude;
+                var myLatitude = res.latitude;
 
-                if (data == 0) {
-                    //未超时
+                that.createClock();
 
-                } else if (data == 1) {
-                    //过时
-
-                    that.rmOrder();
-
-                    wx.showModal({
-                        title: '超过三分钟无人接单',
-                        content: '已自动取消订单'
-                    })
-                } else if (data = 2) {
-                    //接到单
-                    this.setData({
-                        hideAtt: 'hideAtt',
-                        itv: clearInterval(that.data.itv),
-                        second: 0,
-                        clock: "0:00"
-                    })
+                var data = {
+                    openid: wx.getStorageSync('openid'),
+                    start: that.data.start,
+                    end: that.data.end,
+                    startLongitude: that.data.startLocation.longitude,
+                    startLatitude: that.data.startLocation.latitude,
+                    endLongitude: that.data.endLocation.longitude,
+                    endLatitude: that.data.endLocation.latitude,
+                    carType: that.data.carType,
+                    distance: that.data.distance,
+                    myLongitude: myLongitude,
+                    myLatitude: myLatitude
                 }
+
+                console.log(data)
+
+                wx.request({
+                    url: "https://www.forhyj.cn/miniapp/User/checkHandUp",
+                    data: data,
+                    method: "POST",
+                    success: function (res) {
+                        var data = res.data;
+
+                        if (data == 0) {
+                            //未超时
+
+                        } else if (data == 1) {
+                            //过时
+
+                            that.rmOrder();
+
+                            wx.showModal({
+                                title: '超过三分钟无人接单',
+                                content: '已自动取消订单'
+                            })
+                        } else if (data = 2) {
+                            //接到单
+                            that.setData({
+                                hideAtt: 'hideAtt',
+                                itv: clearInterval(that.data.itv),
+                                second: 0,
+                                clock: "0:00"
+                            })
+                        }
+                    }
+                })
             }
         })
+
+
     },
     rmOrder: function () {
         var that = this;

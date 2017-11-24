@@ -18,8 +18,9 @@ Page({
         }, {
             iconPath: "../../imgs/marker.png",
             id: 0,
-            latitude: 39.90816,
-            longitude: 116.434446,
+            latitude: '',
+            longitude: '',
+            location: '',
             width: 23,
             height: 33
         }],
@@ -48,7 +49,6 @@ Page({
             origin: '116.481028,39.989643',
             destination: '116.434446,39.90816',
             success: function (data) {
-                console.log(data)
                 var points = [];
                 if (data.paths && data.paths[0] && data.paths[0].steps) {
                     var steps = data.paths[0].steps;
@@ -92,14 +92,21 @@ Page({
             }
             markers.push(data[j]);
         }
+
         that.setData({
             markers: markers
         });
     },
-    getMyLocation: function() {
+    getMyLocation: function () {
+        var that = this;
+
         wx.getLocation({
-            success: function(res) {
-                console.log(res)
+            success: function (res) {
+                that.setData({
+                    longitude: res.longitude,
+                    latitude: res.latitude,
+                    location: res.longitude + ',' + res.latitude
+                })
             }
         })
     }
