@@ -85,7 +85,14 @@ Page({
       wx.setStorageSync('carType', type);
 
       wx.navigateTo({
-          url: '../callCar/callCar',
+          url: '../callCar/callCar'
       })
+  },
+
+  myWallet: function (e) {
+    console.log(e);
+    wx.navigateTo({
+      url: '../wallet/wallet'
+    })
   }
 })

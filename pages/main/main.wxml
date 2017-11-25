@@ -15,7 +15,7 @@
         <text class="iconfont icon-orders"></text>
         <text>订单记录</text>
       </view>
-      <view class="item" style="width:{{itemW}};height:{{itemW}};line-height:{{itemH}}">
+      <view bindtap="myWallet" class="item" style="width:{{itemW}};height:{{itemW}};line-height:{{itemH}}">
         <text class="iconfont icon-qianbao"></text>
         <text>钱包</text>
       </view>
