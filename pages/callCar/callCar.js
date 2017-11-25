@@ -31,6 +31,12 @@ Page({
             carType: wx.getStorageSync('carType')
         })
     },
+    /**
+   * 生命周期函数--监听页面卸载
+   */
+    onUnload: function () {
+        this.rmOrder();
+    },
     bindInput: function (e) {
         var that = this;
         var keywords = e.detail.value;
@@ -146,19 +152,18 @@ Page({
                     myLatitude: myLatitude
                 }
 
-                console.log(data)
-
                 wx.request({
                     url: "https://www.forhyj.cn/miniapp/User/checkHandUp",
                     data: data,
                     method: "POST",
                     success: function (res) {
                         var data = res.data;
+                        console.log(data);
 
-                        if (data == 0) {
+                        if (data.status_code == 0 || data.status_code == 3) {
                             //未超时
 
-                        } else if (data == 1) {
+                        } else if (data.status_code == 1) {
                             //过时
 
                             that.rmOrder();
@@ -167,7 +172,7 @@ Page({
                                 title: '超过三分钟无人接单',
                                 content: '已自动取消订单'
                             })
-                        } else if (data = 2) {
+                        } else if (data.status_code = 2) {
                             //接到单
                             that.setData({
                                 hideAtt: 'hideAtt',
@@ -180,8 +185,6 @@ Page({
                 })
             }
         })
-
-
     },
     rmOrder: function () {
         var that = this;
