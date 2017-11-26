@@ -1,0 +1,25 @@
+<view class='order-view'>
+  <view class='order-border'>
+    <view class='order-title'>
+      <view class='title-img'><image style='width:40px;height:40px' src='../../imgs/icon-minus.png'></image></view>
+      <view class='title-info'><text>起点</text>-<text>终点</text></view>
+      <view class='title-stave'><text>订单已完成</text></view>
+    </view>
+    <scroll-view scroll-y style="height: 120px;" scroll-top="{{scrollTop}}">
+      <view class="scroll-view-item"><text>用户名字:{{userName}}</text></view>
+      <view class="scroll-view-item"><text>司机名字:{{drivName}}</text></view>
+      <view class="scroll-view-item"><text>下单时间:{{startTime}}</text></view>
+      <view class="scroll-view-item"><text>结束时间:{{endTime}}</text></view>
+      <view class="scroll-view-item"><text>付款方式:{{rptName}}</text></view>
+      <view class="scroll-view-item"><text>订单状态:{{olsName}}</text></view>
+      <view class="scroll-view-item"><text>里程数:{{kmNum}}</text></view>
+      <view class="scroll-view-item"><text>里程价:{{kmPrice}}</text></view>
+      <view class="scroll-view-item"><text>超时价:{{overTimePrice}}</text></view>
+      <view class="scroll-view-item"><text>小费:{{tips}}</text></view>
+    </scroll-view>
+    <view class='order-footer'>
+      <button wx:if='{{bool}}' class='footer-btn'>评价司机</button>
+      <button class='footer-btn'>付款</button>
+    </view>
+  </view>
+</view>
