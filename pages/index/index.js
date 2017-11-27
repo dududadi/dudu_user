@@ -13,7 +13,7 @@ Page({
     bindViewTap: function () {
 
     },
-    onLoad: function () {
+    onReady: function () {
         var that = this;
 
         if (app.globalData.userInfo) {
@@ -33,7 +33,7 @@ Page({
             })
         }
     },
-    onReady: function () {
+    onLoad: function () {
         wx.login({
             success: function (res) {
                 if (res.code) {

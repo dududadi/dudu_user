@@ -43,9 +43,27 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        var that = this;
         this.getMyLocation();
 
-        this.data.itv = setInterval(this.paintMap, 2000)
+        wx.request({
+            url: 'https://www.forhyj.cn/miniapp/User/getOrderId',
+            data: {
+                openid: wx.getStorageSync('openid'),
+                driverid: wx.getStorageSync('driverId')
+            },
+            method: 'POST',
+            success: function (res) {
+                var data = res.data;
+                console.log(data)
+
+                wx.setStorageSync('orderId', res.data);
+
+                that.data.itv = setInterval(that.paintMap, 2000);
+            }
+        })
+
+        
     },
     showMarkerInfo: function (data, i) {
         var that = this;
@@ -97,10 +115,13 @@ Page({
                 longitude: that.data.longitude,
                 latitude: that.data.latitude,
                 openid: wx.getStorageSync('openid'),
-                driverid: wx.getStorageSync('driverId')
+                driverid: wx.getStorageSync('driverId'),
+                orderId: wx.getStorageSync('orderId')
             },
             success: function (res) {
                 var data = res.data;
+
+                console.log(data)
 
                 var driverLocation = data.dl_longitude + ',' + data.dl_latitude;
 
