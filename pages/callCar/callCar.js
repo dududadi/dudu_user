@@ -1,29 +1,29 @@
 var amapFile = require('../../libs/amap-wx.js');
-var myAmapFun = new amapFile.AMapWX({ key: '19ea604f2c70652cfafbe4843a5ac736' });
+var myAmapFun = new amapFile.AMapWX({ key: '19ea604f2c70652cfafbe4843a5ac736' });   //接入高德地图
 var lonlat;
 var city;
 
 Page({
-    data: {
-        tips1: {},
-        tips2: {},
-        start: "",
-        end: "",
-        carType: "",
-        startLocation: {
+    data: {    
+        tips1: {},  //起点的搜索结果
+        tips2: {},  //终点的搜索结果
+        start: "",  //起点名字
+        end: "",    //终点名字
+        carType: "",    //车类型
+        startLocation: {    //起始位置
             latitude: '',
             longitude: ''
         },
-        endLocation: {
+        endLocation: {      //终点位置
             latitude: '',
             longitude: ''
-        },
-        itv: '',
-        distance: 0,
-        hideAtt: 'hideAtt',
-        clock: '0:00',
-        second: 0
-    },
+        },  
+        itv: '',    //轮询变量
+        distance: 0,    //距离
+        hideAtt: 'hideAtt',     //隐藏标签的类
+        clock: '0:00',      //时钟
+        second: 0       //秒
+    },    
     onLoad: function (e) {
         lonlat = e.lonlat;
         city = e.city;
@@ -180,6 +180,12 @@ Page({
                                 second: 0,
                                 clock: "0:00"
                             })
+
+                            wx.setStorageSync('driverId', data.driv_id);
+
+                            wx.redirectTo({
+                                url: '../map/map'
+                            }) 
                         }
                     }
                 })

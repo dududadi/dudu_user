@@ -11,7 +11,7 @@ Page({
         markers: [{
             iconPath: "../../imgs/marker.png",
             id: 0,
-            latitude: 39.989643,
+            latitude: 29.989643,
             longitude: 116.481028,
             width: 23,
             height: 33
@@ -27,7 +27,10 @@ Page({
         distance: '',
         cost: '',
         polyline: [],
-        textData: {}
+        textData: {},
+        longitude: '',
+        latitude: '',
+        location: ''
     },
     makertap: function (e) {
         var id = e.markerId;
@@ -40,37 +43,9 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        setInterval(this.getMyLocation, 1000)
+        this.getMyLocation();
 
-        var that = this;
-        var myAmapFun = new amapFile.AMapWX({ key: '19ea604f2c70652cfafbe4843a5ac736' });
-
-        myAmapFun.getDrivingRoute({
-            origin: '116.481028,39.989643',
-            destination: '116.434446,39.90816',
-            success: function (data) {
-                var points = [];
-                if (data.paths && data.paths[0] && data.paths[0].steps) {
-                    var steps = data.paths[0].steps;
-                    for (var i = 0; i < steps.length; i++) {
-                        var poLen = steps[i].polyline.split(';');
-                        for (var j = 0; j < poLen.length; j++) {
-                            points.push({
-                                longitude: parseFloat(poLen[j].split(',')[0]),
-                                latitude: parseFloat(poLen[j].split(',')[1])
-                            })
-                        }
-                    }
-                }
-                that.setData({
-                    polyline: [{
-                        points: points,
-                        color: "#0091ff",
-                        width: 6
-                    }]
-                });
-            }
-        })
+        this.data.itv = setInterval(this.paintMap, 2000)
     },
     showMarkerInfo: function (data, i) {
         var that = this;
@@ -106,6 +81,75 @@ Page({
                     longitude: res.longitude,
                     latitude: res.latitude,
                     location: res.longitude + ',' + res.latitude
+                })
+            }
+        })
+    },
+    paintMap() {
+        var that = this;
+
+        this.getMyLocation();
+
+        wx.request({
+            url: 'https://www.forhyj.cn/miniapp/User/getDriverLocation',
+            method: 'POST',
+            data: {
+                longitude: that.data.longitude,
+                latitude: that.data.latitude,
+                openid: wx.getStorageSync('openid'),
+                driverid: wx.getStorageSync('driverId')
+            },
+            success: function (res) {
+                var data = res.data;
+
+                var driverLocation = data.dl_longitude + ',' + data.dl_latitude;
+
+                that.setData({
+                    markers: [{
+                        iconPath: "../../imgs/marker.png",
+                        id: 0,
+                        latitude: that.data.longitude,
+                        longitude: that.data.latitude,
+                        width: 23,
+                        height: 33
+                    }, {
+                        iconPath: "../../imgs/marker.png",
+                        id: 0,
+                        latitude: data.dl_longitude,
+                        longitude: data.dl_latitude,
+                        location: that.data.location,
+                        width: 23,
+                        height: 33
+                    }],
+                    distance: data.paths[0].distance
+                })
+
+                myAmapFun.getDrivingRoute({
+                    origin: that.data.location,
+                    destination: driverLocation,
+                    success: function (data) {
+                        var points = [];
+                        if (data.paths && data.paths[0] && data.paths[0].steps) {
+                            var steps = data.paths[0].steps;
+                            for (var i = 0; i < steps.length; i++) {
+                                var poLen = steps[i].polyline.split(';');
+                                for (var j = 0; j < poLen.length; j++) {
+                                    points.push({
+                                        longitude: parseFloat(poLen[j].split(',')[0]),
+                                        latitude: parseFloat(poLen[j].split(',')[1])
+                                    })
+                                }
+                            }
+                        }
+
+                        that.setData({
+                            polyline: [{
+                                points: points,
+                                color: "#0091ff",
+                                width: 6
+                            }]
+                        });
+                    }
                 })
             }
         })

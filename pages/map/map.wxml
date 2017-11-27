@@ -2,7 +2,7 @@
     <text style='margin:0 auto;line-height:70rpx;'>司机离你还有 {{distance}} 米</text>
 </view>
 <view class="map_box">
-    <map id="navi_map" longitude="116.451028" latitude="39.949643" scale="12" markers="{{markers}}" polyline="{{polyline}}"></map>
+    <map id="navi_map" longitude="{{longitude}}" latitude="{{latitude}}" scale="12" markers="{{markers}}" polyline="{{polyline}}"></map>
 </view>
 
 <view class="text_box">
