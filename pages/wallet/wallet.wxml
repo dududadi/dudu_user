@@ -1,5 +1,5 @@
 <view>
-  <view>
+  <view style='text-align:center'>
     <image style='height:700rpx;weight:300rpx'  src='../../imgs/wallet.png'></image>
   </view>
   <view style='text-align:center'>
