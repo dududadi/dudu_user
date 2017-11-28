@@ -11,9 +11,9 @@
         <text data-type="出租车" class="iconfont icon-taxi"></text>
         <text data-type="出租车">出租车</text>
       </view>
-      <view class="item borderR-none" style="width:{{itemW}};height:{{itemW}};line-height:{{itemH}}">
+      <view bindtap="myOrder" class="item borderR-none" style="width:{{itemW}};height:{{itemW}};line-height:{{itemH}}">
         <text class="iconfont icon-orders"></text>
-        <text>订单记录</text>
+        <text>历史订单</text>
       </view>
       <view bindtap="myWallet" class="item" style="width:{{itemW}};height:{{itemW}};line-height:{{itemH}}">
         <text class="iconfont icon-qianbao"></text>

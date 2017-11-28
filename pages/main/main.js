@@ -94,5 +94,11 @@ Page({
     wx.navigateTo({
       url: '../wallet/wallet'
     })
+  },
+
+  myOrder: function (e) {
+    wx.navigateTo({
+      url: '../order/order?openid=' + wx.getStorageSync('openid')
+    })
   }
 })
