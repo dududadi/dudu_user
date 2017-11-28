@@ -7,14 +7,29 @@ Page({
     
   },
   
-  payment: function () {
-    wx.getStorage({
-      key: 'openid',
+  payment:function()
+  {
+    //获取当前登录的openid
+    var openid = wx.getStorageSync('openid')
+    //console.log(openid);
+    //获取当前时间戳
+    //var timestamp = Date.parse(new Date());
+   // timestamp = timestamp / 1000;
+    //console.log("当前时间戳为：" + timestamp);
+    wx.request({
+      url: 'https://www.forhyj.cn/miniapp/WexinPay/Pay',
+      method: 'GET',
+      data: {
+        openid:openid,
+        total_fee:1
+      },
       success: function (res) {
-        var openid = res.data;
+        console.log(res);
+      },
+      fail:function(res){
+        console.res; 
       }
     })
-    console.log(openid);
   },
    
   /**
