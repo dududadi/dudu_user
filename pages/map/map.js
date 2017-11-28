@@ -63,7 +63,7 @@ Page({
             }
         })
 
-        
+
     },
     showMarkerInfo: function (data, i) {
         var that = this;
@@ -121,57 +121,63 @@ Page({
             success: function (res) {
                 var data = res.data;
 
-                console.log(data)
+                if (data.ols_id == 2) {
+                    that.setData({
+                        itv: clearInterval(that.data.itv)
+                    })
+                } else {
+                    var driverLocation = data.dl_longitude + ',' + data.dl_latitude;
 
-                var driverLocation = data.dl_longitude + ',' + data.dl_latitude;
+                    that.setData({
+                        markers: [{
+                            iconPath: "../../imgs/marker.png",
+                            id: 0,
+                            latitude: that.data.longitude,
+                            longitude: that.data.latitude,
+                            width: 23,
+                            height: 33
+                        }, {
+                            iconPath: "../../imgs/marker.png",
+                            id: 0,
+                            latitude: data.dl_longitude,
+                            longitude: data.dl_latitude,
+                            location: that.data.location,
+                            width: 23,
+                            height: 33
+                        }],
+                        distance: data.paths[0].distance
+                    })
 
-                that.setData({
-                    markers: [{
-                        iconPath: "../../imgs/marker.png",
-                        id: 0,
-                        latitude: that.data.longitude,
-                        longitude: that.data.latitude,
-                        width: 23,
-                        height: 33
-                    }, {
-                        iconPath: "../../imgs/marker.png",
-                        id: 0,
-                        latitude: data.dl_longitude,
-                        longitude: data.dl_latitude,
-                        location: that.data.location,
-                        width: 23,
-                        height: 33
-                    }],
-                    distance: data.paths[0].distance
-                })
-
-                myAmapFun.getDrivingRoute({
-                    origin: that.data.location,
-                    destination: driverLocation,
-                    success: function (data) {
-                        var points = [];
-                        if (data.paths && data.paths[0] && data.paths[0].steps) {
-                            var steps = data.paths[0].steps;
-                            for (var i = 0; i < steps.length; i++) {
-                                var poLen = steps[i].polyline.split(';');
-                                for (var j = 0; j < poLen.length; j++) {
-                                    points.push({
-                                        longitude: parseFloat(poLen[j].split(',')[0]),
-                                        latitude: parseFloat(poLen[j].split(',')[1])
-                                    })
+                    myAmapFun.getDrivingRoute({
+                        origin: that.data.location,
+                        destination: driverLocation,
+                        success: function (data) {
+                            var points = [];
+                            if (data.paths && data.paths[0] && data.paths[0].steps) {
+                                var steps = data.paths[0].steps;
+                                for (var i = 0; i < steps.length; i++) {
+                                    var poLen = steps[i].polyline.split(';');
+                                    for (var j = 0; j < poLen.length; j++) {
+                                        points.push({
+                                            longitude: parseFloat(poLen[j].split(',')[0]),
+                                            latitude: parseFloat(poLen[j].split(',')[1])
+                                        })
+                                    }
                                 }
                             }
-                        }
 
-                        that.setData({
-                            polyline: [{
-                                points: points,
-                                color: "#0091ff",
-                                width: 6
-                            }]
-                        });
-                    }
-                })
+                            that.setData({
+                                polyline: [{
+                                    points: points,
+                                    color: "#0091ff",
+                                    width: 6
+                                }]
+                            });
+                        }
+                    })
+                }
+
+
             }
         })
     }

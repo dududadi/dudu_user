@@ -7,7 +7,6 @@
         "pages/callCar/callCar",
         "pages/map/map",
         "pages/bill/bill"
-        
     ],
     "window": {
         "backgroundTextStyle": "light",
