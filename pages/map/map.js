@@ -1,6 +1,5 @@
 var amapFile = require('../../libs/amap-wx.js');
 var myAmapFun = new amapFile.AMapWX({ key: '19ea604f2c70652cfafbe4843a5ac736' });
-var markersData = []
 
 Page({
     /**
@@ -81,8 +80,8 @@ Page({
         var that = this;
 
         wx.getLocation({
+            type: 'gcj02',
             success: function (res) {
-
                 that.setData({
                     longitude: res.longitude,
                     latitude: res.latitude,
@@ -116,7 +115,7 @@ Page({
                         itv: clearInterval(that.data.itv)
                     })
 
-                    that.inCar;
+                    that.inCar();
                     that.data.itv = setInterval(that.inCar, 5000);
                 } else {
                     var driverLocation = data.dl_longitude + ',' + data.dl_latitude;
@@ -190,22 +189,35 @@ Page({
                     len += that.calculateDistance(data[i].latitude, data[i].longitude, data[i - 1].latitude, data[i - 1].longitude);
                 }
 
-                that.setData({
-                    polyline: [{
-                        points: data,
-                        color: "#0091ff",
-                        width: 6
-                    }],
-                    markers: [{
-                        iconPath: "../../imgs/marker.png",
-                        latitude: Number(data[data.length - 1].latitude),
-                        longitude: Number(data[data.length - 1].longitude),
-                        width: 23,
-                        height: 33
-                    }],
-                    distance: '已上车',
-                    inCarInfo: '路程： ' + len + ' km'
-                });
+                if (data.length > 0) {
+                    that.setData({
+                        polyline: [{
+                            points: data,
+                            color: "#0091ff",
+                            width: 6
+                        }],
+                        markers: [{
+                            iconPath: "../../imgs/marker.png",
+                            latitude: Number(data[data.length - 1].latitude),
+                            longitude: Number(data[data.length - 1].longitude),
+                            width: 23,
+                            height: 33
+                        }],
+                        distance: '已上车',
+                        inCarInfo: '路程： ' + len + ' km'
+                    });
+                } else {
+                    that.setData({
+                        polyline: [{
+                            points: data,
+                            color: "#0091ff",
+                            width: 6
+                        }],
+                        markers: [],
+                        distance: '已上车',
+                        inCarInfo: '路程： ' + (len/1000).toFixed(2) + ' km'
+                    });
+                }
             }
         })
     },
