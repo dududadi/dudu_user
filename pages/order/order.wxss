@@ -29,13 +29,17 @@
 }
 
 .title-info{
-  width: 150px;
+  width: 220px;
   padding-left: 10px;
-  font-size: 18px;
+  font-size: 12px;
+  line-height: 20px;
 }
+.title-info>text{
+  display: block;
+}
+
 .title-stave{
   width: 70px;
-  margin-left: 30px;
   font-size: 14px;
 }
 

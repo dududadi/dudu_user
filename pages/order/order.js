@@ -18,12 +18,18 @@ Page({
       scrollTop: this.data.scrollTop + 10
     })
   },
-  onLoad:function () {
+  onLoad:function (location) {
+    var opid=location.openid;
+    console.log(opid);
+    var that=this;
     wx.request({
       url: 'https://www.forhyj.cn/miniapp/order/orderList',
       type:'POST',
       success:function(res){
-        console.log(res);
+        console.log(res.data);
+        that.setData({
+          resArr: res.data
+        })
       }
     })
   }
