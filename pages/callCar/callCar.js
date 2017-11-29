@@ -158,7 +158,6 @@ Page({
                     method: "POST",
                     success: function (res) {
                         var data = res.data;
-                        console.log(data);
 
                         if (data.status_code == 0 || data.status_code == 3) {
                             //未超时
@@ -166,7 +165,7 @@ Page({
                         } else if (data.status_code == 1) {
                             //过时
 
-                            that.rmOrder();
+                            that.rmOrder(); 
 
                             wx.showModal({
                                 title: '超过三分钟无人接单',
