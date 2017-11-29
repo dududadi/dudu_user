@@ -19,14 +19,13 @@ Page({
     })
   },
   onLoad:function (location) {
-    var opid=location.openid;
-    console.log(opid);
+    var wxopid=location.openid;
     var that=this;
     wx.request({
       url: 'https://www.forhyj.cn/miniapp/order/orderList',
-      type:'POST',
+      method:'POST',
+      data: { 'wxopid': wxopid},
       success:function(res){
-        console.log(res.data);
         that.setData({
           resArr: res.data
         })
