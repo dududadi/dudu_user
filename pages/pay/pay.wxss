@@ -1,0 +1,31 @@
+/* pages/table/table.wxss */
+page {
+    font-size: 14px;
+    color:#333;
+    background: #f3f4f5;
+}
+
+.table {
+  border: 0px solid darkgray;
+}
+.tr {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 3rem;
+  /* background: green; */
+  align-items: center;
+}
+.tdl ,.tdr{
+    width:30%;
+    /* background: red; */
+    justify-content: center;
+    text-align: right;
+    padding: 10rpx;
+}
+.tdr{
+    text-align: left;
+    width:50%;
+}
+
+

@@ -1,0 +1,32 @@
+<view>
+    <view style='text-align:center;margin:50rpx;'>
+        <image style='height:300rpx;width:300rpx' src='../../imgs/coin.png'></image>
+    </view>
+</view>
+
+<view class="table">
+    <view class="tr">
+        <view class="tdl">需要支付：</view>
+        <view class="tdr">{{total}}元(最低消费{{low}}元)</view>
+    </view>
+    <view class="tr">
+        <view class="tdl">行程时间：</view>
+        <view class="tdr">{{stime}}至{{etime}}</view>
+    </view>
+    <view class="tr">
+        <view class="tdl">时长费：</view>
+        <view class="tdr">{{tprice}}元</view>
+    </view>
+     <view class="tr">
+        <view class="tdl">里程数：</view>
+        <view class="tdr">{{len}}km</view>
+    </view>
+    <view class="tr">
+        <view class="tdl">里程费：</view>
+        <view class="tdr">{{dprice}}元</view>
+    </view>
+    
+</view>
+<view>
+    <button size="default" style='margin:50rpx auto;width:90%;background:#E67F02;color:white' bindtap="pay"> 支付 </button>
+</view>

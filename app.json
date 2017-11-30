@@ -1,5 +1,7 @@
 {
     "pages": [
+       
+        "pages/pay/pay",
         "pages/index/index",
         "pages/logs/logs",
         "pages/register/register",
@@ -9,6 +11,7 @@
         "pages/bill/bill",
         "pages/wallet/wallet",
         "pages/order/order"
+        
     ],
     "window": {
         "backgroundTextStyle": "light",

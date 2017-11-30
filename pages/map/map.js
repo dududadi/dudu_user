@@ -90,7 +90,6 @@ Page({
             }
         })
     },
-
     //地图绘制
     paintMap() {
         var that = this;
@@ -225,10 +224,13 @@ Page({
                         cost: '当前出行金额： ' + data.cost + ' 元'
                     })
                 }
-
+                // 待支付状态
                 if (data.status == 4) {
                     that.setData({
                         itv: clearInterval(that.data.itv)
+                    })
+                    wx.navigateTo({
+                        url: '../pay/pay'
                     })
                 }
             }

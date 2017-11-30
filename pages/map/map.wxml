@@ -11,4 +11,5 @@
 <text style='margin:0 auto;line-height:70rpx;'>{{cost}}</text>
 </view>
 <view class="text_box">
+
 </view>
