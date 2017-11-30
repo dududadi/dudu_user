@@ -183,57 +183,55 @@ Page({
             data: data,
             success: function (res) {
                 var data = res.data;
-                var len = 0;
 
-                for (var i = 1; i < data.length; i++) {
-                    len += that.calculateDistance(data[i].latitude, data[i].longitude, data[i - 1].latitude, data[i - 1].longitude);
-                }
+                console.log(data)
 
-                if (data.length > 0) {
+                if (data.wayArr.length > 0) {
                     that.setData({
                         polyline: [{
-                            points: data,
+                            points: data.wayArr,
                             color: "#0091ff",
                             width: 6
                         }],
                         markers: [{
                             iconPath: "../../imgs/marker.png",
-                            latitude: Number(data[data.length - 1].latitude),
-                            longitude: Number(data[data.length - 1].longitude),
+                            latitude: Number(data.wayArr[data.wayArr.length - 1].latitude),
+                            longitude: Number(data.wayArr[data.wayArr.length - 1].longitude),
                             width: 23,
                             height: 33
                         }],
                         distance: '已上车',
-                        inCarInfo: '路程： ' + len + ' km'
+                        inCarInfo: '路程： ' + data.len + ' km'
                     });
                 } else {
                     that.setData({
                         polyline: [{
-                            points: data,
+                            points: data.wayArr,
                             color: "#0091ff",
                             width: 6
                         }],
                         markers: [],
                         distance: '已上车',
-                        inCarInfo: '路程： ' + (len/1000).toFixed(2) + ' km'
+                        inCarInfo: '路程： ' + (data.len / 1000).toFixed(2) + ' km'
                     });
+                }
+
+                if (data.cost == data.low) {
+                    that.setData({
+                        cost: '当前出行金额： ' + data.cost + ' 元（最低消费）'
+                    })
+                } else {
+                    that.setData({
+                        cost: '当前出行金额： ' + data.cost + ' 元'
+                    })
+                }
+
+                if (data.status == 4) {
+                    that.setData({
+                        itv: clearInterval(that.data.itv)
+                    })
                 }
             }
         })
-    },
-
-    //根据经纬度算距离
-    calculateDistance: function (lat1, lng1, lat2, lng2) {
-        var radLat1 = lat1 * Math.PI / 180.0;
-        var radLat2 = lat2 * Math.PI / 180.0;
-
-        var a = radLat1 - radLat2;
-        var b = lng1 * Math.PI / 180.0 - lng2 * Math.PI / 180.0;
-
-        var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
-        s = s * 6378137.0;
-        s = Math.round(s * 10000) / 10000.0;
-
-        return s;
     }
 })

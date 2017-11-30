@@ -6,5 +6,9 @@
 </view>
 
 <view class="text_box">
-    {{inCarInfo}}
+<text style='margin:0 auto;line-height:70rpx;'>{{inCarInfo}}</text>
+<br/>
+<text style='margin:0 auto;line-height:70rpx;'>{{cost}}</text>
+</view>
+<view class="text_box">
 </view>
