@@ -109,7 +109,15 @@ Page({
             })
         } else {
             var that = this;
+            var data = {
+                openid: wx.getStorageSync('openid')
+            }
 
+            wx.request({
+                url: "https://www.forhyj.cn/miniapp/User/rmOrder",
+                data: data,
+                method: "POST"
+            })
             myAmapFun.getDrivingRoute({
                 origin: that.data.startLocation.longitude + ',' + that.data.startLocation.latitude,
                 destination: that.data.endLocation.longitude + ',' + that.data.endLocation.latitude,
@@ -129,7 +137,6 @@ Page({
     },
     getDriver: function () {
         var that = this;
-
         wx.getLocation({
             type: 'gcj02',
             success: function (res) {

@@ -19,7 +19,8 @@ Page({
     })
   },
   onLoad:function (location) {
-    var wxopid=location.openid;
+    //var wxopid=location.openid;
+    var wxopid = wx.getStorageSync('openid');
     var that=this;
     wx.request({
       url: 'https://www.forhyj.cn/miniapp/order/userOrderList',

@@ -1,32 +1,59 @@
 <view>
     <view style='text-align:center;margin:50rpx;'>
-        <image style='height:300rpx;width:300rpx' src='../../imgs/coin.png'></image>
+        <image style='height:250rpx;width:250rpx' src='../../imgs/coin.png'></image>
     </view>
 </view>
 
 <view class="table">
     <view class="tr">
         <view class="tdl">需要支付：</view>
-        <view class="tdr">{{total}}元(最低消费{{low}}元)</view>
+        <view class="tdr">{{cost}}元
+            <label wx:if="{{cost<=12}}">(最低消费)</label>
+        </view>
     </view>
     <view class="tr">
-        <view class="tdl">行程时间：</view>
-        <view class="tdr">{{stime}}至{{etime}}</view>
+        <view class="tdl">开始时间：</view>
+        <view class="tdr">{{stime}}</view>
     </view>
     <view class="tr">
+        <view class="tdl">结束时间：</view>
+        <view class="tdr">{{etime}}</view>
+    </view>
+    <view class="tr" wx:if="{{cost>12}}">
         <view class="tdl">时长费：</view>
         <view class="tdr">{{tprice}}元</view>
     </view>
-     <view class="tr">
+    <view class="tr">
         <view class="tdl">里程数：</view>
         <view class="tdr">{{len}}km</view>
     </view>
-    <view class="tr">
+    <view class="tr" wx:if="{{cost>12}}">
         <view class="tdl">里程费：</view>
         <view class="tdr">{{dprice}}元</view>
     </view>
-    
+
 </view>
 <view>
-    <button size="default" style='margin:50rpx auto;width:90%;background:#E67F02;color:white' bindtap="pay"> 支付 </button>
+    <button size="default" style='margin:50rpx auto;width:90%;background:#E67F02;color:white' bindtap="openInputPsw"> 支付 </button>
+</view>
+<!--输入钱包密码-->
+<view wx:if="{{wallets_password_flag}}" class="wallets-password">
+    <view class="input-content-wrap">
+        <view class="top">
+            <view catchtap="close_wallets_password" class="close">×</view>
+            <view class="txt">您的余额为{{money}}</view>
+            <view catchtap="modify_password" class="forget"></view>
+        </view>
+        <view class="actual_fee">
+            <span>需要支付：￥</span>
+            <text>{{cost}}</text>
+        </view>
+        <view catchtap="set_Focus" class="input-password-wrap">
+            <input bindinput='inputPsw' type='password' maxlength="16" placeholder="请输入密码"></input>
+        </view>
+        <view>
+            <button  size="mini" style='margin:20rpx auto;width:150rpx;display:block;background:#f69F22;color:white' bindtap="conPay">确认</button>
+        </view>
+    </view>
+    <input bindinput="set_wallets_password" class="input-content" password type="number" focus="{{isFocus}}" maxlength="6" />
 </view>
