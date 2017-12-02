@@ -11,7 +11,28 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    var that = this;
+    var openid = wx.getStorageSync('openid');
+    //console.log(openid)
+    wx.request({
+      url: 'https://www.forhyj.cn/miniapp/Bill/userBill',
+      method: 'POST',
+      data: {
+        openid: openid
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        console.log(res)
+        that.setData({
+          resArr: res.data
+        })
+      },
+      fail: function (res) {
+        console.log(1);
+      }
+    }) 
   },
 
   /**

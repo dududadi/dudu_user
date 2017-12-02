@@ -4,13 +4,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    monney: 0
   },
   
   payment:function()
   {
     //获取当前登录的openid
-    var openid = wx.getStorageSync('openid')
+    //var openid = wx.getStorageSync('openid')
     //console.log(openid);
     //获取当前时间戳
     //var timestamp = Date.parse(new Date());
@@ -20,15 +20,34 @@ Page({
       url: 'https://www.forhyj.cn/miniapp/WexinPay/Pay',
       method: 'GET',
       data: {
-        openid:openid,
-        total_fee:1
+        //openid:openid,
+        //total_fee:1
       },
       success: function (res) {
-        console.log(res);
+        console.log(res.data)
+        wx.requestPayment({
+          'timeStamp': res.data.timeStamp,
+          'nonceStr': res.data.nonceStr,
+          'package': res.data.package,
+          'signType': 'MD5',
+          'paySign': res.data.paySign,
+          'success': function (res) {
+            console.log("支付成功")
+          },
+          'fail': function (res) {
+            console.log(res)
+          }
+        })
       },
       fail:function(res){
-        console.res; 
+        console.log(0); 
       }
+    })
+  },
+  myBill:function()
+  {
+    wx.navigateTo({
+      url: '../bill/bill'
     })
   },
    
@@ -36,7 +55,27 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    var that = this;
+    var openid = wx.getStorageSync('openid');
+    //console.log(openid)
+    wx.request({
+      url: 'https://www.forhyj.cn/miniapp/Wallet/userWallet',
+      method: 'POST',
+      data: {
+        openid: openid
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        that.setData({
+          monney: res.data.user_money
+        })
+      },
+      fail: function (res) {
+        console.log(1);
+      }
+    }) 
   },
 
   /**

@@ -9,6 +9,6 @@
     <button class='btn_charge' bindtap='payment'>钱包充值</button>
   </view>
   <view>
-    <button class='btn_bill'>我的账单</button>
+    <button class='btn_bill' bindtap='myBill'>我的账单</button>
   </view>
 </view>
