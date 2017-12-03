@@ -25,7 +25,7 @@ Page({
             url: 'https://www.forhyj.cn/miniapp/User/comment',
             data: {
                 openid: wx.getStorageSync('openid'),
-                driverid: wx.getStorageSync('driverId'),
+                driverId: wx.getStorageSync('driverId'),
                 orderId: wx.getStorageSync('orderId'),
                 comment: comment,
                 score:score
@@ -35,7 +35,18 @@ Page({
                 if (res.data){
                     wx.showModal({
                         title: '评价成功',
-                        content: '感谢您的评价，期待下次为您服务'
+                        content: '感谢您的评价，期待下次为您服务',
+                        success: function (res) {
+                            if (res.confirm) {
+                                wx.redirectTo({
+                                    url: '../main/main',
+                                })
+                            } else if (res.cancel) {
+                                wx.redirectTo({
+                                    url: '../main/main',
+                                })
+                            }
+                        }
                     })
                 }else{
                     wx.showModal({

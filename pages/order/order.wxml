@@ -13,7 +13,7 @@
       <view class='title-stave'><text>{{item.olsName}}</text></view>
     </view>
     <scroll-view scroll-y style="height: 290rpx;" scroll-top="{{scrollTop}}">
-        <view class="tr"><view class="tdl">用户名：</view><view class="tdr">{{item.userName}}</view></view>
+        <view class="tr"><view class="tdl">用户：</view><view class="tdr">{{item.userName}}</view></view>
         <view class="tr"><view class="tdl">司机：</view><view class="tdr">{{item.drivName}}</view></view>
         <view class="tr"  wx:if="{{item.cost==12}}">
             <view class="tdl">总价：</view>
@@ -34,7 +34,7 @@
     </scroll-view>
     <view class='order-footer'>
       <button bindtap='checkMap' wx:if='{{item.olsName == "未接客"}}' class='footer-btn'>查看司机位置</button>
-      <button bindtap='checkMap' wx:elif='{{item.olsName == "未过期"}}' class='footer-btn'>查看当前</button>
+      <button bindtap='checkMap' wx:elif='{{item.olsName == "未过期"}}' class='footer-btn'>查看当前位置</button>
       <button bindtap='goPay' wx:elif='{{item.olsName == "未支付"}}' class='footer-btn'>去支付</button>
       <button bindtap='goComment' wx:else='{{item.olsName == "已支付"}}' class='footer-btn'>评价司机</button>
     </view>
