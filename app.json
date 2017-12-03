@@ -1,7 +1,8 @@
 {
     "pages": [  
-        "pages/order/order", 
+        "pages/comment/comment",
         "pages/index/index",
+        "pages/order/order", 
         "pages/pay/pay",
         "pages/logs/logs",
         "pages/register/register",
@@ -9,8 +10,8 @@
         "pages/callCar/callCar",
         "pages/map/map",
         "pages/bill/bill",
-        "pages/wallet/wallet"
-        
+        "pages/wallet/wallet",
+        "pages/chargeMoney/chargeMoney"
         
     ],
     "window": {

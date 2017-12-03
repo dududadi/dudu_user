@@ -57,3 +57,24 @@
     </view>
     <input bindinput="set_wallets_password" class="input-content" password type="number" focus="{{isFocus}}" maxlength="6" />
 </view>
+<!-- 快速充值 -->
+<view wx:if="{{fast_charge_flag}}" class="wallets-password">
+    <view class="input-content-wrap">
+        <view class="top">
+            <view catchtap="close_fast_charge" class="close">×</view>
+            <view class="txt">您的余额为{{money}}</view>
+            <view catchtap="modify_password" class="forget"></view>
+        </view>
+        <view class="actual_fee">
+            <span>最少需要充值：￥{{cost-money}}</span>
+            <text>{{cost}}</text>
+        </view>
+        <view catchtap="set_Focus" class="input-password-wrap">
+            <input bindinput='inputPsw' type='password' maxlength="16" placeholder="请输入密码"></input>
+        </view>
+        <view>
+            <button  size="mini" style='margin:20rpx auto;width:150rpx;display:block;background:#f69F22;color:white' bindtap="conPay">确认</button>
+        </view>
+    </view>
+    <input bindinput="set_wallets_password" class="input-content" password type="number" focus="{{isFocus}}" maxlength="6" />
+</view>

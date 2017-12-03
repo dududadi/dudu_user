@@ -14,24 +14,29 @@ Page({
         balance: 100,//余额
         actual_fee: 20,//待支付
         wallets_password_flag: false,//密码输入遮罩
-        psw:''
+        fast_charge_flag:false,//快速充值
+        psw:'',
+        money:0
     },
     onLoad: function (e) {
         this.setPayInfo();
     },
     //支付
     openInputPsw: function () {
-        var money = this.data.cost;
+        var cost = this.data.cost;
         var _this = this;
         wx.request({
             url: "https://www.forhyj.cn/miniapp/User/checkMoney",
             data: {
-                money: money,
+                money: cost,
                 openid: wx.getStorageSync('openid')
             },
             method: "POST",
             success: function (res) {
-                if(res.data){
+                _this.setData({
+                    money: res.data.money,
+                })
+                if (res.data.status_code){
                     _this.setData({
                         wallets_password_flag: true,
                     })
@@ -41,12 +46,15 @@ Page({
                         content: '您的余额不足，请充值！',
                         success: function (res) {
                             if (res.confirm) {
-                                console.log('用户点击确定');
-                                wx.navigateTo({
-                                    url: '../wallet/wallet'
+                                console.log('用户点击确定充值');
+                                _this.setData({
+                                    fast_charge_flag: true,
                                 })
+                                // wx.navigateTo({
+                                //     url: '../wallet/wallet'
+                                // })
                             } else if (res.cancel) {
-                                console.log('用户点击取消')
+                                console.log('用户点击取消充值')
                             }
                         }
                     })
@@ -62,13 +70,13 @@ Page({
     },
     conPay:function(){
         var psw = this.data.psw;
-        var money = this.data.cost;
+        var cost = this.data.cost;
         wx.request({
             url: "https://www.forhyj.cn/miniapp/User/checkPsw",
             data: { 
                 psw: psw,
                 openid: wx.getStorageSync('openid'),
-                money: money,
+                money: cost,
                 driverid: wx.getStorageSync('driverId'),
                 orderId: wx.getStorageSync('orderId')
             },
@@ -123,6 +131,12 @@ Page({
         this.setData({
             isFocus: false,//失去焦点
             wallets_password_flag: false,
+        })
+    },
+    close_fast_charge() {//关闭快速充值遮罩
+        this.setData({
+            isFocus: false,//失去焦点
+            fast_charge_flag: false,
         })
     },
     //结算并显示金额
