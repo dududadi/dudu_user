@@ -230,7 +230,7 @@ Page({
                         itv: clearInterval(that.data.itv)
                     })
                     wx.navigateTo({
-                        url: '../pay/pay'
+                        url: '../pay/pay?orderId=' + wx.getStorageSync('orderId')
                     })
                 }
             }
