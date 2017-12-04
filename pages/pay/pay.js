@@ -16,9 +16,14 @@ Page({
         wallets_password_flag: false,//密码输入遮罩
         fast_charge_flag:false,//快速充值
         psw:'',
-        money:0
+        money:0,
+        addMoney:0
     },
     onLoad: function (e) {
+        console.log(e);
+        this.setData({
+            orderId: e.orderId
+        })
         this.setPayInfo();
     },
     //支付
@@ -36,7 +41,7 @@ Page({
                 _this.setData({
                     money: res.data.money,
                 })
-                if (res.data.status_code){
+                if (res.data.status_code=='1'){
                     _this.setData({
                         wallets_password_flag: true,
                     })
@@ -63,14 +68,48 @@ Page({
         })
        
     },
+    inputMoney:function(e){
+        this.setData({
+            addMoney: e.detail.value
+        })
+    },
     inputPsw: function (e) {
         this.setData({
             psw: e.detail.value
         })
     },
+    conAdd:function(){
+        var addMoney = this.data.addMoney;
+        var _this = this;
+        wx.request({
+            url: "https://www.forhyj.cn/miniapp/User/addMoney",
+            data: {
+                openid: wx.getStorageSync('openid'),
+                addMoney: addMoney,
+            },
+            method: "POST",
+            success: function (res) {
+                if(res.data){
+                    wx.showToast({
+                        title: '充值成功',
+                        icon: 'success'
+                    })
+                    _this.setData({
+                        fast_charge_flag: false,
+                    })
+                }else{
+                    wx.showToast({
+                        title: '充值失败',
+                        icon: 'fail'
+                    })
+                }
+            }
+        })
+    },
     conPay:function(){
         var psw = this.data.psw;
         var cost = this.data.cost;
+        var orderId = this.data.orderId;
         wx.request({
             url: "https://www.forhyj.cn/miniapp/User/checkPsw",
             data: { 
@@ -78,7 +117,7 @@ Page({
                 openid: wx.getStorageSync('openid'),
                 money: cost,
                 driverid: wx.getStorageSync('driverId'),
-                orderId: wx.getStorageSync('orderId')
+                orderId: orderId
             },
             method: "POST",
             success: function (res) {
@@ -141,14 +180,11 @@ Page({
     },
     //结算并显示金额
     setPayInfo:function(){
-        this.setData({
-            orderId: wx.getStorageSync('orderId')
-        })
-        console.log(this.data.orderId);
         var that = this;
+        var orderId = this.data.orderId;
         wx.request({
             url: "https://www.forhyj.cn/miniapp/User/setPayInfo",
-            data: { orderId: that.data.orderId },
+            data: { orderId: orderId },
             method: "POST",
             success: function (res) {
                 console.log(res);

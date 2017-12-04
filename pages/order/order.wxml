@@ -10,7 +10,12 @@
         <text>起点：{{item.startName}}</text>
         <text>终点：{{item.endName}}</text>
       </view>
-      <view class='title-stave'><text>{{item.olsName}}</text></view>
+      <view class='title-stave'>
+        <text wx:if='{{item.olsName == "司机已评价"}}'>待评价</text>
+        <text wx:elif='{{item.olsName == "均已评价"}}'>已评价</text>
+        <text wx:elif='{{item.olsName == "用户已评价"}}'>已评价</text>
+        <text wx:else>{{item.olsName}}</text>
+      </view>
     </view>
     <scroll-view scroll-y style="height: 290rpx;" scroll-top="{{scrollTop}}">
         <view class="tr"><view class="tdl">用户：</view><view class="tdr">{{item.userName}}</view></view>
@@ -35,8 +40,11 @@
     <view class='order-footer'>
       <button bindtap='checkMap' wx:if='{{item.olsName == "未接客"}}' class='footer-btn'>查看司机位置</button>
       <button bindtap='checkMap' wx:elif='{{item.olsName == "未过期"}}' class='footer-btn'>查看当前位置</button>
-      <button bindtap='goPay' wx:elif='{{item.olsName == "未支付"}}' class='footer-btn'>去支付</button>
-      <button bindtap='goComment' wx:else='{{item.olsName == "已支付"}}' class='footer-btn'>评价司机</button>
+      <label  wx:elif='{{item.olsName == "已过期"}}' class='footer-btn'></label>
+      <button id='{{item.orderId}}' bindtap='goPay' wx:elif='{{item.olsName == "待支付"}}' class='footer-btn'>去支付</button>
+      <button id='{{item.orderId}}' bindtap='goComment' wx:elif='{{item.olsName == "已支付"}}' class='footer-btn'>评价司机</button>
+      <button id='{{item.orderId}}' bindtap='goComment' wx:elif='{{item.olsName == "司机已评价"}}' class='footer-btn'>评价司机</button>
+      <button id='{{item.orderId}}' bindtap='checkComment' wx:else class='footer-btn'>查看评价</button>
     </view>
   </view>
   </view>

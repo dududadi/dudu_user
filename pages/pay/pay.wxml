@@ -66,14 +66,14 @@
             <view catchtap="modify_password" class="forget"></view>
         </view>
         <view class="actual_fee">
-            <span>最少需要充值：￥{{cost-money}}</span>
-            <text>{{cost}}</text>
+            <span>最少需要充值：￥</span>
+            <text>{{cost-money}}</text>
         </view>
         <view catchtap="set_Focus" class="input-password-wrap">
-            <input bindinput='inputPsw' type='password' maxlength="16" placeholder="请输入密码"></input>
+            <input bindinput='inputMoney' type='text' placeholder="请输入充值金额"></input>
         </view>
         <view>
-            <button  size="mini" style='margin:20rpx auto;width:150rpx;display:block;background:#f69F22;color:white' bindtap="conPay">确认</button>
+            <button  size="mini" style='margin:20rpx auto;width:150rpx;display:block;background:#f69F22;color:white' bindtap="conAdd">确认</button>
         </view>
     </view>
     <input bindinput="set_wallets_password" class="input-content" password type="number" focus="{{isFocus}}" maxlength="6" />

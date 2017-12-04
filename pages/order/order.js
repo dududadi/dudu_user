@@ -28,6 +28,22 @@ Page({
       }
     }
   },
+  goComment: function (event) {
+      var orderId = event.target.id;
+      console.log(event);
+      console.log(orderId);
+      wx.redirectTo({
+          url: '../comment/comment?orderId=' + orderId
+      })
+  },
+  goPay: function (event) {
+      var orderId = event.target.id;
+      console.log(event);
+      console.log(orderId);
+      wx.redirectTo({
+          url: '../pay/pay?orderId=' + orderId
+      })
+  },
   tapMove: function (e) {
     this.setData({
       scrollTop: this.data.scrollTop + 10
