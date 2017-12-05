@@ -1,0 +1,15 @@
+<view class='bill_nav'>
+    <text style='margin-left:20rpx '>用户指南</text>
+  </view>
+<view class='guide'>
+  <text>第一步：叫车前先确定自己所在地址</text>
+</view>
+<view class='guide'>
+  <text>第二步：司机接单后最好主动联系司机</text>
+</view>
+<view class='guide' style='height:150rpx'>
+  <text>第三步：上车后请保持手机网络通畅，并关注地图上出租车的移动轨迹，若方向错误，可及时提醒司机矫正</text>
+</view>
+<view class='end'>
+  <text>最后，祝您行程愉快~</text>
+</view>

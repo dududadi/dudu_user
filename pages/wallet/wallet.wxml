@@ -12,3 +12,18 @@
     <button class='btn_bill' bindtap='myBill'>我的账单</button>
   </view>
 </view>
+<!--输入钱包密码-->
+<view wx:if="{{wallets_password_flag}}" class="wallets-password">
+    <view class="input-content-wrap">
+        <view >
+            <view catchtap="close_wallets_password" style='float:right'>×</view>
+        </view>
+        <view catchtap="set_Focus" class="input-password-wrap">
+            <input bindinput='inputMoney' type='text' maxlength="16" placeholder="请输入金额"></input>
+        </view>
+        <view>
+            <button  size="mini" style='margin:20rpx auto;width:150rpx;display:block;background:#f69F22;color:white' bindtap="conPay">确认</button>
+        </view>
+    </view>
+    <input bindinput="pay" class="input-content" password type="number" focus="{{isFocus}}" maxlength="6" />
+</view>

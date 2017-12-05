@@ -4,10 +4,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    monney: 0
+    monney: 0,
+    money:""
   },
-  
-  payment:function()
+  //微信支付可能
+  /*payment:function()
   {
     //获取当前登录的openid
     //var openid = wx.getStorageSync('openid')
@@ -43,14 +44,55 @@ Page({
         console.log(0); 
       }
     })
-  },
+  },*/
   myBill:function()
   {
     wx.navigateTo({
       url: '../bill/bill'
     })
   },
-   
+  inputMoney: function (e) {
+    this.setData({
+      money: e.detail.value
+    })
+  },
+  payment: function (e) {
+    this.setData({
+      wallets_password_flag: true,
+    })
+  },
+  conPay: function () {
+    var openid = wx.getStorageSync('openid')
+    var money = this.data.money;
+    console.log(money)
+    console.log(openid)
+    wx.request({
+      url: "https://www.forhyj.cn/miniapp/Wallet/Recharge",
+      data: {
+        money: money,
+        openid: openid
+      },
+      method: "POST",
+      success: function (res) {
+       console.log(res);
+       wx.showToast({
+         title: '支付成功',
+       })
+      }
+    })
+  },
+  close_wallets_password() {//关闭钱包输入密码遮罩
+    this.setData({
+      isFocus: false,//失去焦点
+      wallets_password_flag: false,
+    })
+  },
+  close_fast_charge() {//关闭快速充值遮罩
+    this.setData({
+      isFocus: false,//失去焦点
+      fast_charge_flag: false,
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

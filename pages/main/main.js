@@ -95,6 +95,12 @@ Page({
           url: '../suggest/suggest'
       })
   },
+  //指南
+  guide:function(e){
+    wx.navigateTo({
+      url: '../guide/guide'
+    })
+  },
   myWallet: function (e) {
     console.log(e);
     wx.navigateTo({
