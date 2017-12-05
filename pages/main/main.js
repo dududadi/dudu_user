@@ -100,5 +100,12 @@ Page({
     wx.navigateTo({
       url: '../order/order?openid=' + wx.getStorageSync('openid')
     })
+  },
+
+  //安全设置
+  safetySetting: function (e) {
+    wx.navigateTo({
+      url: '../safety_setting/safety_setting?openid=' + wx.getStorageSync('openid')
+    })
   }
 })

@@ -2,7 +2,6 @@
     "pages": [  
         "pages/index/index",
         "pages/comment/comment",
-        
         "pages/order/order", 
         "pages/pay/pay",
         "pages/logs/logs",
@@ -12,8 +11,8 @@
         "pages/map/map",
         "pages/bill/bill",
         "pages/wallet/wallet",
-        "pages/chargeMoney/chargeMoney"
-        
+        "pages/chargeMoney/chargeMoney",
+        "pages/safety_setting/safety_setting"
     ],
     "window": {
         "backgroundTextStyle": "light",

@@ -23,7 +23,10 @@
         <text class="iconfont icon-guide"></text>
         <text>指南</text>
       </view>
-      <view class="item border-none" style="width:{{itemW}};height:{{itemW}};line-height:{{itemH}}"></view>
+      <view bindtap="safetySetting" class="item border-none" style="width:{{itemW}};height:{{itemW}};line-height:{{itemH}}">
+        <text class="iconfont icon-safetySetting"></text>
+        <text>安全设置</text>
+      </view>
     </view>
   </view>
   <view class="section">
