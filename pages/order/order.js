@@ -1,22 +1,11 @@
 Page({
   data: {
     toView: 'red',
-    scrollTop: 0
-  },
-  checkMap:function(){
-      wx.redirectTo({
-          url: '../map/map'
-      })
-  },
-  goPay:function(){
-      wx.redirectTo({
-          url: '../pay/pay'
-      })
-  },
-  goComment:function(){
-      wx.redirectTo({
-          url: '../comment/comment'
-      })
+    scrollTop: 0,
+    commentShow: 'none',
+    commentTime: '',
+    commentScore: '',
+    commentText: ''
   },
   tap: function (e) {
     for (var i = 0; i < order.length; ++i) {
@@ -29,25 +18,53 @@ Page({
     }
   },
   goComment: function (event) {
+      var driverId = event.target.dataset.driverid;
       var orderId = event.target.id;
       console.log(event);
       console.log(orderId);
       wx.redirectTo({
-          url: '../comment/comment?orderId=' + orderId
+          url: '../comment/comment?orderId=' + orderId + '&driverId=' + driverId
       })
   },
   goPay: function (event) {
+      var driverId = event.target.dataset.driverid;
       var orderId = event.target.id;
       console.log(event);
       console.log(orderId);
       wx.redirectTo({
-          url: '../pay/pay?orderId=' + orderId
+          url: '../pay/pay?orderId=' + orderId + '&driverId=' + driverId
       })
   },
   tapMove: function (e) {
     this.setData({
       scrollTop: this.data.scrollTop + 10
     })
+  },
+  //查看评分信息
+  checkComment: function (e) {
+    var that = this;
+    var orderId = e.target.id;
+    var that = this;
+    wx.request({
+      url: 'https://www.forhyj.cn/miniapp/user/getOrderComment',
+      method: 'POST',
+      data: {orderId: orderId},
+      success: function (res) {
+        console.log(res.data);
+        that.setData({
+          commentTime: res.data.cutd_time,
+          commentScore: res.data.cutd_score,
+          commentText: res.data.cutd_content,
+          commentShow: 'block'
+        });
+      }
+    });
+  },
+  //关闭评分信息
+  closeComment: function (e) {
+    this.setData({
+      commentShow: 'none'
+    });
   },
   onLoad:function (location) {
     //var wxopid=location.openid;
@@ -59,7 +76,7 @@ Page({
       data: { 'wxopid': wxopid},
       success:function(res){
         that.setData({
-          resArr: res.data  
+          resArr: res.data
         })
       }
     })

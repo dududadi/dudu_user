@@ -4,7 +4,7 @@ var lonlat;
 var city;
 
 Page({
-    data: {    
+    data: {
         tips1: {},  //起点的搜索结果
         tips2: {},  //终点的搜索结果
         start: "",  //起点名字
@@ -17,14 +17,15 @@ Page({
         endLocation: {      //终点位置
             latitude: '',
             longitude: ''
-        },  
+        },
         itv: '',    //轮询变量
         distance: 0,    //距离
         hideAtt: 'hideAtt',     //隐藏标签的类
         clock: '0:00',      //时钟
         second: 0       //秒
-    },    
+    },
     onLoad: function (e) {
+        console.log(e);
         lonlat = e.lonlat;
         city = e.city;
         this.setData({
@@ -102,30 +103,54 @@ Page({
         }
     },
     callCarBtn: function () {
-        if (this.data.start == '' || this.data.end == '') {
-            wx.showModal({
-                title: '请检查输入',
-                content: '起点或终点未输入'
-            })
-        } else {
-            var that = this;
+        var that = this;
+        wx.request({
+            url: "https://www.forhyj.cn/miniapp/User/getOnlineOrder",
+            data: {openId: wx.getStorageSync('openid')},
+            method: "POST",
+            success: function (res) {
+                console.log(res.data);
+                if (!res.data) {
+                    if (that.data.start == '' || that.data.end == '') {
+                        wx.showModal({
+                            title: '请检查输入',
+                            content: '起点或终点未输入'
+                        })
+                    } else {
 
-            myAmapFun.getDrivingRoute({
-                origin: that.data.startLocation.longitude + ',' + that.data.startLocation.latitude,
-                destination: that.data.endLocation.longitude + ',' + that.data.endLocation.latitude,
-                success: function (data) {
-                    that.setData({
-                        distance: data.paths[0].distance
+                        myAmapFun.getDrivingRoute({
+                            origin: that.data.startLocation.longitude + ',' + that.data.startLocation.latitude,
+                            destination: that.data.endLocation.longitude + ',' + that.data.endLocation.latitude,
+                            success: function (data) {
+                                that.setData({
+                                    distance: data.paths[0].distance
+                                });
+                            }
+                        })
+
+                        that.setData({
+                            hideAtt: ''
+                        })
+
+                        that.data.itv = setInterval(that.getDriver, 1000);
+                    }
+                } else {
+                    wx.showModal({
+                      title: '提示',
+                      content: '您有订单正在进行，请前往历史订单查看详情！',
+                      showCancel: false,
+                      success: function(res) {
+                        if (res.confirm) {
+                            wx.redirectTo({
+                                url: '/pages/order/order?openid=' + wx.getStorageSync('openid')
+                            });
+                        }
+                      }
                     });
                 }
-            })
+            }
+        });
 
-            this.setData({
-                hideAtt: ''
-            })
-
-            this.data.itv = setInterval(this.getDriver, 1000);
-        }
     },
     getDriver: function () {
         var that = this;
@@ -185,7 +210,7 @@ Page({
 
                             wx.redirectTo({
                                 url: '../map/map'
-                            }) 
+                            })
                         }
                     }
                 })

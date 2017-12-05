@@ -9,9 +9,15 @@ Page({
         selectedSrc: "../../imgs/star-full.png",
         halfSrc: "../../imgs/star-half-full.png",
         key: 0,//评分
-        comment:''//评价
+        comment: '',//评价
+        driverId: '',
+        orderId: ''
     },
-    onLoad: function () {
+    onLoad: function (val) {
+        this.setData({
+            driverId: val.driverId,
+            orderId: val.orderId
+        });
     },
     inputComment:function(e){
         this.setData({
@@ -19,14 +25,15 @@ Page({
         })
     },
     submitComment:function(){
+        var that = this;
         var comment = this.data.comment;
         var score = this.data.key;
         wx.request({
             url: 'https://www.forhyj.cn/miniapp/User/comment',
             data: {
                 openid: wx.getStorageSync('openid'),
-                driverId: wx.getStorageSync('driverId'),
-                orderId: wx.getStorageSync('orderId'),
+                driverId: that.data.driverId,
+                orderId: that.data.orderId,
                 comment: comment,
                 score:score
             },

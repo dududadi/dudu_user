@@ -88,7 +88,13 @@ Page({
           url: '../callCar/callCar'
       })
   },
-
+  //建议
+  suggest: function (e) {
+      console.log(e);
+      wx.navigateTo({
+          url: '../suggest/suggest'
+      })
+  },
   myWallet: function (e) {
     console.log(e);
     wx.navigateTo({

@@ -1,7 +1,8 @@
 Page({
     data:{
         // 计算支付余额
-        orderId:0,
+        orderId: 0,
+        driverId: '',
         total: 0,
         dprice: 0,
         tprice: 0,
@@ -24,6 +25,11 @@ Page({
         this.setData({
             orderId: e.orderId
         })
+        if (e.driverId) {
+            this.setData({
+                driverId: e.driverId
+            });
+        };
         this.setPayInfo();
     },
     //支付
@@ -66,7 +72,7 @@ Page({
                 }
             }
         })
-       
+
     },
     inputMoney:function(e){
         this.setData({
@@ -110,20 +116,22 @@ Page({
         var psw = this.data.psw;
         var cost = this.data.cost;
         var orderId = this.data.orderId;
+        var that = this;
+        console.log(that.data.driverId?that.data.driverId:wx.getStorageSync('driverId'));
         wx.request({
             url: "https://www.forhyj.cn/miniapp/User/checkPsw",
-            data: { 
+            data: {
                 psw: psw,
                 openid: wx.getStorageSync('openid'),
                 money: cost,
-                driverid: wx.getStorageSync('driverId'),
+                driverid: that.data.driverId?that.data.driverId:wx.getStorageSync('driverId'),
                 orderId: orderId
             },
             method: "POST",
             success: function (res) {
                 console.log(res);
                 if(res.data==1){
-                    
+
                     wx.showModal({
                         title: '支付成功',
                         content: '确认前往订单页面，取消则返回首页！',
@@ -207,6 +215,6 @@ Page({
             }
         })
     }
-    
+
 
 })
