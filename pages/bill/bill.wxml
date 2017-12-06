@@ -10,10 +10,10 @@
       <view class='bill 'wx:for="{{resArr}}" wx:key='{{item}}'>
         <view>
           <text>消费对象{{item.drivName}}</text>
-          <text style='float:right'>-{{item.kmPrice + item.overTimePrice}}</text>
+          <text style='float:right'>-{{item.dmrMoney}}</text>
         </view>
         <view>
-          <text>时间：{{item.endTime}}</text>
+          <text>时间：{{item.dmrTime}}</text>
         </view>
       </view>
     </view>
