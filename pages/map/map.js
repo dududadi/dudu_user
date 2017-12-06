@@ -49,6 +49,12 @@ Page({
 
 
     },
+    onUnload: function () {
+        var that = this;
+        that.setData({
+            itv: clearInterval(that.data.itv)
+        });
+    },
     showMarkerInfo: function (data, i) {
         var that = this;
         that.setData({
